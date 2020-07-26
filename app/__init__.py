@@ -45,10 +45,10 @@ app.layout = dbc.Container(fluid=False, children=[
             html.Div(
                 [
                     html.Img(
-                        src=app.get_asset_url("dash-logo.png"),
+                        src=app.get_asset_url("AML.png"),
                         id="logo",
                         style={
-                            "height": "60px",
+                            "height": "120px",
                             "width": "auto",
                             "margin-bottom": "25px",
                         },
@@ -80,11 +80,11 @@ app.layout = dbc.Container(fluid=False, children=[
                     html.A(
                         html.Button("Más información", id="learn-more-button"),
                         href="https://github.com/rsconsuegra/visualization_page",
-                    )
+                    ),
                 ],
                 className="one-third column",
                 id="button",
-                style = {'width':'30%'}
+                style = {'width':'30%',"justify":"center", "align":"center","margin-top":"20px"}
             ),
         ],
         id="header",
@@ -142,7 +142,7 @@ def make_graph(date_start,age):
   ## it verifies the age firs, if it is a valid age, returns a graph, a warning if not
   print(age)
   if (age == None):
-    return html.Div('Seleccione una fecha')
+    return html.Div('Seleccione una edad valida')
   fig = px.choropleth_mapbox(df, geojson=counties, locations='fips', color='unemp',
                              color_continuous_scale="Viridis",
                              range_color=(0, 12),
