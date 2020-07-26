@@ -112,13 +112,12 @@ app.layout = dbc.Container(fluid=False, children=[
                 placeholder="Edad",
               )]),
               dbc.FormGroup([
-                dcc.DatePickerRange(
-                    id='my-date-picker-range',
+                dcc.DatePickerSingle(
+                    id='my-date-picker-single',
                     min_date_allowed=dt(2000, 8, 5),
                     max_date_allowed=dt(2019, 2, 1),
                     initial_visible_month=dt(2019, 1, 1),
-                    start_date=dt(2018, 12, 1).date(),
-                    end_date=dt(2019, 1, 7).date()
+                    date=dt(2018, 12, 1).date(),
                 ),
             ]),
         ]),md=4),
@@ -130,11 +129,10 @@ app.layout = dbc.Container(fluid=False, children=[
 @app.callback(
     Output("cluster-graph", "figure"),
     [
-        dash.dependencies.Input('my-date-picker-range', 'start_date'),
-        dash.dependencies.Input('my-date-picker-range', 'end_date')
+        dash.dependencies.Input('my-date-picker-single', 'date')
     ],
 )
-def make_graph(date_start, date_end):
+def make_graph(date_start):
   fig = px.choropleth_mapbox(df, geojson=counties, locations='fips', color='unemp',
                              color_continuous_scale="Viridis",
                              range_color=(0, 12),
