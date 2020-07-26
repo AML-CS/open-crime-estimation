@@ -110,29 +110,39 @@ app.layout = dbc.Container(fluid=False, children=[
                 id="age",
                 type="number",
                 placeholder="Edad",
-              )]),
+                min=2, 
+                max=150,
+                value = 4
+              ),]),
               dbc.FormGroup([
                 dcc.DatePickerSingle(
                     id='my-date-picker-single',
-                    min_date_allowed=dt(2000, 8, 5),
-                    max_date_allowed=dt(2019, 2, 1),
-                    initial_visible_month=dt(2019, 1, 1),
-                    date=dt(2018, 12, 1).date(),
+                    min_date_allowed=dt(2019, 1, 1),
+                    max_date_allowed=dt(2019, 12, 31),
+                    initial_visible_month=dt(2019, 5, 1),
+                    date=dt(2019, 5, 1).date(),
+                    show_outside_days = False, 
                 ),
+                html.Button('Submit', id='submit-val'),
             ]),
         ]),md=4),
-      dbc.Col(dcc.Graph(id="cluster-graph"), md=8)
+      dbc.Col(html.Div(id="cluster-graph"), md=8)
       ],align="center",)
     ])
 
 
 @app.callback(
-    Output("cluster-graph", "figure"),
+    Output("cluster-graph", "children"),
     [
-        dash.dependencies.Input('my-date-picker-single', 'date')
+        dash.dependencies.Input('my-date-picker-single', 'date'),
+        Input('age','value')
     ],
 )
-def make_graph(date_start):
+def make_graph(date_start,age):
+  ## it verifies the age firs, if it is a valid age, returns a graph, a warning if not
+  print(age)
+  if (age == None):
+    return html.Div('Seleccione una fecha')
   fig = px.choropleth_mapbox(df, geojson=counties, locations='fips', color='unemp',
                              color_continuous_scale="Viridis",
                              range_color=(0, 12),
@@ -142,7 +152,7 @@ def make_graph(date_start):
                              labels={'unemp':'unemployment rate'}
                             )
   fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-  return fig
+  return dcc.Graph(figure = fig)
 
 def create_app():
   # App settings
