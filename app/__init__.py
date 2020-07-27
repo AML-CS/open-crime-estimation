@@ -100,7 +100,7 @@ app.layout = dbc.Container(fluid=False, children=[
 				placeholder="Edad",
 				min=2, 
 				max=150,
-				value = 4
+				value=18
 			  ),
 			  html.Label('Ciudad'),
 			  dcc.Dropdown(
@@ -121,9 +121,9 @@ app.layout = dbc.Container(fluid=False, children=[
 			  dcc.Input(
 				id="hour",
 				type="number",
-				placeholder="0-23",
+				placeholder="13",
 				min=0, 
-				max=23
+				max=23,
 			  ),
 		]),md=4),
 	  dbc.Col(html.Div(id="cluster-graph"), md=8)
@@ -143,8 +143,7 @@ app.layout = dbc.Container(fluid=False, children=[
 )
 def make_graph(date,city,sex,age,hour):
 	## it verifies the age firs, if it is a valid age, returns a graph, a warning if not
-	
-	if (age == None or city==None or sex == None or hour == None):
+	if (age == None or city == None or sex == None or hour == None):
 		return html.Div('Llene todos los campos de forma valida')
 	geography = city.split(sep='-')
 	print(geography)
