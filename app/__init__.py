@@ -71,7 +71,10 @@ app.layout = dbc.Container(fluid=False, children=[
                 [
                     html.A(
                         html.Button("Más información", id="learn-more-button"
-                            ,style ={"font-family": '"Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',"background-color":"transparent","border":"1px transparent #bbb",'color':'#ffffff'}),
+                            ,style ={
+                            "background-color":"transparent",
+                            "border":"1px solid #bbb",
+                            "color":'#ffffff'}),
                         href="https://github.com/rsconsuegra/visualization_page",
                     ),
                 ],
@@ -110,7 +113,7 @@ app.layout = dbc.Container(fluid=False, children=[
               dbc.FormGroup([
                 dcc.DatePickerSingle(
                     id='my-date-picker-single',
-                    min_date_allowed=dt(2019, 1, 1),
+                    min_date_allowed=dt(2010, 1, 1),
                     max_date_allowed=dt(2019, 12, 31),
                     initial_visible_month=dt(2019, 5, 1),
                     date=dt(2019, 5, 1).date(),
