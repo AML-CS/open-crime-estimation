@@ -1,3 +1,4 @@
+flask
 plotly
 dash
 dash_renderer

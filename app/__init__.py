@@ -1,4 +1,6 @@
+import flask
 import dash
+
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -25,7 +27,15 @@ df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/fips-
 cities = pd.read_csv('app/assets/Dept_Cap.csv')
 
 external_stylesheets = [dbc.themes.DARKLY]
-app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=external_stylesheets)
+server = flask.Flask(__name__)
+
+app = dash.Dash(
+	__name__,
+	suppress_callback_exceptions=True,
+	external_stylesheets=external_stylesheets,
+	server=server
+)
+
 app.title='Visualizador'
 
 app.layout = dbc.Container(fluid=False, children=[
