@@ -1,7 +1,13 @@
+flask
 plotly
-pandas
 dash
 dash_renderer
 dash_html_components
 pandas_datareader
 dash_bootstrap_components
+pandas
+seaborn
+statsmodels
+folium
+geojsoncontour
+IPython

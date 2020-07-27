@@ -1,4 +1,6 @@
+import flask
 import dash
+
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -22,19 +24,25 @@ with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-c
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/fips-unemp-16.csv",
 				   dtype={"fips": str})
 
-cities = pd.read_csv('assets/Dept_Cap.csv')
+cities = pd.read_csv('app/assets/Dept_Cap.csv')
 
 external_stylesheets = [dbc.themes.DARKLY]
-app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=external_stylesheets)
-app.title='Visualizador'
+server = flask.Flask(__name__)
 
+app = dash.Dash(
+	__name__,
+	suppress_callback_exceptions=True,
+	external_stylesheets=external_stylesheets,
+	server=server
+)
+
+app.title='Visualizador'
 
 app.layout = dbc.Container(fluid=False, children=[
 	# represents the URL bar, doesn't render anything
 	dcc.Location(id='url', refresh=False),
 
 	## Top
-
 	html.Div(
 		[
 			html.Div(
@@ -42,11 +50,6 @@ app.layout = dbc.Container(fluid=False, children=[
 					html.Img(
 						src=app.get_asset_url("AML.png"),
 						id="logo",
-						style={
-							"height": "120px",
-							"width": "auto",
-							"margin-bottom": "25px",
-						},
 					)
 				],
 				className="one-third column",
@@ -68,22 +71,17 @@ app.layout = dbc.Container(fluid=False, children=[
 				],
 				className="one-half column",
 				id="title",
-				style = {'width':'60%'}
 			),
 			html.Div(
 				[
 					html.A(
-						html.Button("Más información", id="learn-more-button"
-							,style ={
-							"background-color":"transparent",
-							"border":"1px solid #bbb",
-							"color":'#ffffff'}),
+						html.Button("Más información", id="learn-more-button",),
 						href="https://github.com/rsconsuegra/visualization_page",
+						target="_blank",
 					),
 				],
 				className="one-third column",
 				id="button",
-				style = {'width':'30%',"justify":"center", "align":"center","margin-top":"20px"}
 			),
 		],
 		id="header",
@@ -94,8 +92,7 @@ app.layout = dbc.Container(fluid=False, children=[
 	# content will be rendered in this element
 	dbc.Row([
 	  dbc.Col(
-		dbc.Card(
-		  [
+		dbc.Card([
 			dbc.FormGroup([
 			  html.Label('Sexo'),
 			  dcc.RadioItems(
@@ -106,18 +103,22 @@ app.layout = dbc.Container(fluid=False, children=[
 				value='F',
 				id = 'sex',
 			  ),
+			  html.Label('Edad'),
 			  dcc.Input(
 				id="age",
 				type="number",
 				placeholder="Edad",
 				min=2, 
 				max=150,
-				value = 4
+				value=18
 			  ),
-			  dcc.Dropdown(options= [{'label':x['Departamento']+'-'+x['Capital'][:-5],
-			  	'value':x['Departamento']+'-'+x['Capital']} for _,x in cities.iterrows()],
-			  	value='ATLÁNTICO-BARRANQUILLA',id='city')]),
-			  dbc.FormGroup([
+			  html.Label('Ciudad'),
+			  dcc.Dropdown(
+					id='city',
+					options= [{'label':x['Departamento']+'-'+x['Capital'][:-5], 'value':x['Departamento']+'-'+x['Capital']} for _,x in cities.iterrows()],
+			  	value='ATLÁNTICO-BARRANQUILLA',)]
+				),
+			  html.Label('Fecha'),
 				dcc.DatePickerSingle(
 					id='my-date-picker-single',
 					min_date_allowed=dt(2010, 1, 1),
@@ -126,14 +127,14 @@ app.layout = dbc.Container(fluid=False, children=[
 					date=dt(2019, 5, 1).date(),
 					show_outside_days = False, 
 				),
+			  html.Label('Hora (formato 24h)'),
 			  dcc.Input(
 				id="hour",
 				type="number",
-				placeholder="Horas (0-23)",
+				placeholder="13",
 				min=0, 
-				max=23
+				max=23,
 			  ),
-			]),
 		]),md=4),
 	  dbc.Col(html.Div(id="cluster-graph"), md=8)
 	  ],align="center",)
@@ -152,8 +153,7 @@ app.layout = dbc.Container(fluid=False, children=[
 )
 def make_graph(date,city,sex,age,hour):
 	## it verifies the age firs, if it is a valid age, returns a graph, a warning if not
-	
-	if (age == None or city==None or sex == None or hour == None):
+	if (age == None or city == None or sex == None or hour == None):
 		return html.Div('Llene todos los campos de forma valida')
 	geography = city.split(sep='-')
 	print(geography)

@@ -1,0 +1,9 @@
+etc
+lib
+share
+bin
+pyenv.cfg
+.vscode
+LICENSE
+README.md
+*.ipynb

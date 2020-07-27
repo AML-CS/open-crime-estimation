@@ -11,4 +11,9 @@ Visualization of Datos Abierto exploration
 ```
 
 ## How to run?
-- Development: `python3 wsgi.py`
+- Development
+```
+  pyenv local 3.8.5
+  source bin/activate .
+  python3 wsgi.py
+```

@@ -1,5 +1,5 @@
 #!/bin/env python
-from app import create_app
+from app import create_app, server
 
 app = create_app()
 
