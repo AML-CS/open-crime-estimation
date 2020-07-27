@@ -1,0 +1,66 @@
+.Select-value{
+	color: blue;
+}
+
+#logo {
+  height: 120px;
+  width: auto;
+  margin-bottom: 25px;
+}
+
+#title {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#learn-more-button {
+  background-color: transparent;
+  border: 1px solid #bbb;
+  color: white;
+  padding: 6px;
+}
+
+.card {
+  padding: 12px;
+}
+
+#button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+
+#city {
+  color: #303030;
+}
+
+input, #my-date-picker-single {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#sex {
+  display: flex;
+  justify-content: center;
+}
+
+#sex > label > input {
+  width: initial;
+  margin-left: 12px;
+}
+
+.SingleDatePicker, .SingleDatePickerInput, .DateInput {
+  width: 100% !important;
+}
+
+.DateInput > input {
+  margin-bottom: 0;
+}
+
+#cluster-graph {
+  margin: auto;
+  text-align: center;
+}
