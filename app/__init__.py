@@ -42,83 +42,63 @@ app.layout = dbc.Container(fluid=False, children=[
 	# represents the URL bar, doesn't render anything
 	dcc.Location(id='url', refresh=False),
 
-	## Top
+	# Top
 	html.Div(
 		[
 			html.Div(
 				[
 					html.Img(
 						src=app.get_asset_url("AML.png"),
+						id="aml-logo",
+					),
+					
+				],
+				className="one-third column",
+			),
+			html.Div(
+				[
+					html.Img(
+						src=app.get_asset_url("logo.png"),
 						id="logo",
 					)
 				],
 				className="one-third column",
-				style = {'width':'10%'} 
-			),
-			html.Div(
-				[
-					html.Div(
-						[
-							html.H3(
-								"Visualizador",
-								style={"margin-bottom": "0px",'textAlign': 'center'},
-							),
-							html.H5(
-								"Proyecto", style={"margin-top": "0px",'textAlign': 'center'}
-							),
-						]
-					)
-				],
-				className="one-half column",
-				id="title",
-			),
-			html.Div(
-				[
-					html.A(
-						html.Button("Más información", id="learn-more-button",),
-						href="https://github.com/rsconsuegra/visualization_page",
-						target="_blank",
-					),
-				],
-				className="one-third column",
-				id="button",
 			),
 		],
 		id="header",
 		className="row flex-display",
-		style={"margin-bottom": "25px"}
 	),
 
-	# content will be rendered in this element
+	# Content will be rendered in this element
 	dbc.Row([
 	  dbc.Col(
 		dbc.Card([
 			dbc.FormGroup([
-			  html.Label('Sexo'),
+			  html.Label('Gender'),
 			  dcc.RadioItems(
 				options=[
-					{'label': 'Femenino', 'value': 'FEMENINO'},
-					{'label': 'Masculino', 'value': 'MASCULINO'},
+					{'label': 'Male', 'value': 'FEMENINO'},
+					{'label': 'Female', 'value': 'MASCULINO'},
 				],
 				value='F',
-				id = 'sex',
+				id = 'gender',
 			  ),
-			  html.Label('Edad'),
+			  html.Label('Age'),
 			  dcc.Input(
 				id="age",
 				type="number",
-				placeholder="Edad",
+				placeholder="Age",
 				min=2, 
 				max=150,
 				value=18
 			  ),
-			  html.Label('Ciudad'),
+			  html.Label('City'),
 			  dcc.Dropdown(
 					id='city',
 					options= [{'label':x['Departamento']+'-'+x['Capital'][:-5], 'value':x['Departamento']+'-'+x['Capital']} for _,x in cities.iterrows()],
 			  	value='ATLÁNTICO-BARRANQUILLA',)]
 				),
-			  html.Label('Fecha'),
+			  html.Label('Date'),
 				dcc.DatePickerSingle(
 					id='my-date-picker-single',
 					min_date_allowed=dt(2010, 1, 1),
@@ -127,7 +107,7 @@ app.layout = dbc.Container(fluid=False, children=[
 					date=dt(2019, 5, 1).date(),
 					show_outside_days = False, 
 				),
-			  html.Label('Hora (formato 24h)'),
+			  html.Label('Hour (24h format)'),
 			  dcc.Input(
 				id="hour",
 				type="number",
@@ -136,9 +116,24 @@ app.layout = dbc.Container(fluid=False, children=[
 				max=23,
 			  ),
 		]),md=4),
-	  dbc.Col(html.Div(id="cluster-graph"), md=8)
-	  ],align="center",)
-	])
+	  dbc.Col(html.Div(id="cluster-graph"), md=8),
+	],align="center"),
+	html.Div(
+		[
+			html.Div([
+				html.P('Made by: Randy Consuegra, Omar Mejía, Elias Niño, Joao Racedo, Juan Rodriguez.'),
+				html.P('Email: aml-cs@uninorte.edu.co'),
+			]),
+			html.A(
+				html.Button("Code source", id="code-source-btn",),
+				href="https://github.com/rsconsuegra/visualization_page",
+				target="_blank",
+			),
+		],
+		className="one-half column",
+		id="footer",
+	),
+])
 
 
 @app.callback(
@@ -146,21 +141,21 @@ app.layout = dbc.Container(fluid=False, children=[
 	[
 		Input('my-date-picker-single', 'date'),
 		Input('city','value'),
-		Input('sex','value'),
+		Input('gender','value'),
 		Input('age','value'),
 		Input('hour','value'),
 	],
 )
-def make_graph(date,city,sex,age,hour):
+def make_graph(date,city,gender,age,hour):
 	## it verifies the age firs, if it is a valid age, returns a graph, a warning if not
-	if (age == None or city == None or sex == None or hour == None):
-		return html.Div('Llene todos los campos de forma valida')
+	if (age == None or city == None or gender == None or hour == None):
+		return html.Div(id="empty-cluster")
 	geography = city.split(sep='-')
 	print(geography)
 	dataPath = geography[1]
 	ciudad = geography[1][:-5]
 	departamento = geography[0]
-	sexo = sex
+	sexo = gender
 	edad = age
 	date_str = date.split(sep='-')
 	mes = int(date_str[1])
