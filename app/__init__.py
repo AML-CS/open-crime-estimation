@@ -22,17 +22,9 @@ df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/fips-
                    dtype={"fips": str})
 
 external_stylesheets = [dbc.themes.DARKLY]
-app = dash.Dash('Visualization page', suppress_callback_exceptions=True, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=external_stylesheets)
+app.title='Visualizador'
 
-layout = dict(
-    autosize=True,
-    automargin=True,
-    margin=dict(l=30, r=30, b=20, t=40),
-    hovermode="closest",
-    plot_bgcolor="#F9F9F9",
-    paper_bgcolor="#F9F9F9",
-  
-)
 
 app.layout = dbc.Container(fluid=False, children=[
     # represents the URL bar, doesn't render anything
@@ -78,7 +70,8 @@ app.layout = dbc.Container(fluid=False, children=[
             html.Div(
                 [
                     html.A(
-                        html.Button("Más información", id="learn-more-button"),
+                        html.Button("Más información", id="learn-more-button"
+                            ,style ={"font-family": '"Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',"background-color":"transparent","border":"1px transparent #bbb",'color':'#ffffff'}),
                         href="https://github.com/rsconsuegra/visualization_page",
                     ),
                 ],
@@ -123,7 +116,6 @@ app.layout = dbc.Container(fluid=False, children=[
                     date=dt(2019, 5, 1).date(),
                     show_outside_days = False, 
                 ),
-                html.Button('Submit', id='submit-val'),
             ]),
         ]),md=4),
       dbc.Col(html.Div(id="cluster-graph"), md=8)
