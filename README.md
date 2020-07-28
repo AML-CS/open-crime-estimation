@@ -1,4 +1,4 @@
-# visualization_page
+# Open Crime Estimation
 Visualization of Datos Abierto exploration
 
 ## Setup
@@ -16,4 +16,9 @@ Visualization of Datos Abierto exploration
   pyenv local 3.8.5
   source bin/activate .
   python3 wsgi.py
+```
+- Production
+```
+  docker build -t open-crime-estimation .
+  docker run --rm open-crime-estimation
 ```

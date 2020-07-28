@@ -121,12 +121,12 @@ app.layout = dbc.Container(fluid=False, children=[
 	html.Div(
 		[
 			html.Div([
-				html.P('Made by: Randy Consuegra, Omar Mejía, Elias Niño, Joao Racedo, Juan Rodriguez.'),
+				html.P('Made by: Randy Consuegra, Omar Mejía, Elias Niño, Sebastian Racedo, Juan Rodriguez.'),
 				html.P('Email: aml-cs@uninorte.edu.co'),
 			]),
 			html.A(
 				html.Button("Code source", id="code-source-btn",),
-				href="https://github.com/rsconsuegra/visualization_page",
+				href="https://github.com/AML-CS/open-crime-estimation",
 				target="_blank",
 			),
 		],
