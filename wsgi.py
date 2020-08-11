@@ -1,7 +1,5 @@
 #!/bin/env python
-from app import create_app, server
-
-app = create_app()
+from app import server
 
 if __name__ == '__main__':
-  app.run_server(debug=True)
+  server.run(debug=True)

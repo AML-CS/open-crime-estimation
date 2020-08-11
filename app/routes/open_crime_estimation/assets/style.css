@@ -1,0 +1,96 @@
+.Select-value{
+	color: blue;
+}
+
+#header {
+  margin-bottom: 12px;
+}
+
+#aml-logo, #logo {
+  margin: 6px;
+  height: 120px;
+  width: auto;
+}
+
+#logo {
+  margin-top: 0;
+  -webkit-transform: scale(3);
+  -moz-transform: scale(3);
+  -o-transform: scale(3);
+  -ms-transform: scale(3);
+  transform: scale(3);
+}
+
+#footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px !important;
+  width: 100%;
+}
+
+#footer > div {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+#footer > div > p {
+  margin: 0;
+  text-align: center;
+}
+
+#code-source-btn {
+  background-color: transparent;
+  border: 1px solid #bbb;
+  color: white;
+  padding: 6px 12px;
+  margin-left: 24px;
+}
+
+.card {
+  padding: 12px;
+}
+
+#city {
+  color: #303030;
+}
+
+input, #my-date-picker-single {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#gender {
+  display: flex;
+  justify-content: center;
+}
+
+#gender > label > input {
+  width: initial;
+  margin-left: 12px;
+}
+
+.SingleDatePicker, .SingleDatePickerInput, .DateInput {
+  width: 100% !important;
+}
+
+.DateInput > input {
+  margin-bottom: 0;
+}
+
+#cluster-graph {
+  margin: auto;
+  text-align: center;
+}
+
+#empty-cluster {
+  width: 100%;
+  height: 500px;
+  border: 1px solid white;
+}
+
+#footer {
+  margin-top: 12px;
+  text-align: right;
+}

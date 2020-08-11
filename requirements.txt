@@ -11,3 +11,6 @@ statsmodels
 folium
 geojsoncontour
 IPython
+pylint
+pylint-flask
+autopep8
