@@ -2,7 +2,7 @@
     "editor.tabSize": 4,
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "editor.formatOnSave": true,
+    // "editor.formatOnSave": true,
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint-flask",
