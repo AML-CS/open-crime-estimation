@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template
 
 from app.routes.open_crime_estimation import create_open_estimation_dash_app
 
