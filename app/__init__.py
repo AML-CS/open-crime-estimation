@@ -8,7 +8,7 @@ create_open_estimation_dash_app(server)
 
 @server.route('/')
 def index():
-	return render_template('index.html', title='Applied Math and Computer Science Lab')
+	return redirect('https://aml-cs.github.io/')
 
 @server.route('/seconddawork')
 def seconddawork():
